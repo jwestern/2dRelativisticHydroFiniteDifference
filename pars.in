@@ -1,9 +1,10 @@
 &pars_input
+Lx = 6.283185307179586 !2*pi
 N = 401
 nt = 1
 freq = 1
 cfl = 0.5
-weos=0.5
+weos=2.
 disip = -0.01
 sL = 1.
 sR = 2.
@@ -32,8 +33,11 @@ resume_time=116.015625
 !
 !!!!!!Forcing general pars
 !
+printforcing=0
+seed=678
+nskip=0 !if nonzero, equals Nv*(N-1)*(N-1)*nt, where Nv = number of forced variables
 F0=0.0001	!Forcing strength for all force types
-solenoidalforce=0 !Note: toggling this on changes forcing strengths considerably...
+solenoidalforce=1 !There is no option to turn this off
 !
 !!!!! Force w/ shifted rectangular profile in Fourier space
 !

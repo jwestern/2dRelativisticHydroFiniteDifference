@@ -2,11 +2,13 @@
 	implicit none
 	
 !define parameters !!!!!!!!!!!!!!!!!!!!!!!
-	real*8 ::  cfl, weos, disip, sL, sR, c,s,a,k_r,k_e, gamma, cl,valuefloor,fricstr,resume_time,F0
+	real*8 ::  cfl, weos, disip, sL, sR, c,s,a,k_r,k_e, gamma, cl,valuefloor,fricstr,&
+		&	resume_time,F0,Lx
 	integer :: N, Nt, freq, derorder,dissorder,STMETH,solenoidalforce, &
-			&fric,relativisticfriction, shiftrectforce, kforcel, kforceg, resume, &
-			&resume_integer, kfric, filterfric, lf,gaussforce
-
+		&	fric,relativisticfriction, shiftrectforce, kforcel, kforceg, resume, &
+		&	resume_integer, kfric, filterfric, lf,gaussforce, printforcing,&
+		&	seed
+	integer(kind=8) :: nskip
 	integer :: irho, ivx,ivy	
 	
 	CONTAINS
@@ -14,11 +16,12 @@
 	
 	subroutine readpars
 	implicit none
-        namelist /pars_input/ N, Nt, freq, cfl, weos, disip, &
+        namelist /pars_input/ Lx, N, Nt, freq, cfl, weos, disip, &
 	&		sL, sR, derorder,dissorder, STMETH,c,s,a, &
 	&		k_r, k_e, gamma, cl,valuefloor, &
 	&		fric, relativisticfriction, fricstr, &
 	&		kfric, filterfric, resume, resume_integer, resume_time, &
+	&		printforcing, seed, nskip, &
 	&		F0, solenoidalforce, shiftrectforce, kforcel, kforceg, &
 	&		gaussforce, lf
 

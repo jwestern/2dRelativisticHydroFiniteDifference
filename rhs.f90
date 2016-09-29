@@ -7,7 +7,7 @@
 
 	use m_pars, only : c, s,k_r, k_e, gamma,irho,ivx,ivy,solenoidalforce,fric,relativisticfriction, &
 			& fricstr, shiftrectforce, kforcel, kforceg, kfric, filterfric,lf,F0, &
-			& gaussforce,shift,width,weos
+			& gaussforce,weos
 	use fourier_tools
 	use M_derivs
 

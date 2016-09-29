@@ -1,15 +1,19 @@
 	module M_EVOLVE
+	use MKL_VSL_TYPE
+	use MKL_VSL
 	implicit none
 	
 	contains
 	
 	
 	subroutine evolve(unew,uold,Pnew,Pold,dx,dt,time,x,y,Nv,N,ITE,freq,arg,kx,ky,scaling,&
-			&errcode,method,stream,numrands,avg,sigma,FFTHandle,lengths))
+			&errcode,method,stream,numrands,avg,sigma,FFTHandle,lengths)
 	use m_derivs
 	use m_boundary
 	use m_rhs
 	use m_pars, only : STMETH, disip, irho, ivx,ivy,weos
+	use fourier_tools
+	use MKL_DFTI
 	implicit none
 	
 	real*8, dimension(:,:,:), intent(inout):: unew,Pnew
@@ -59,13 +63,14 @@
 !Create stream function for forcing field	
 	call forcingfield2(streamfunc,N,scaling,errcode,method,stream,numrands,avg,sigma,FFTHandle,lengths)
 !Define the forcing field in the usual way, as the "curl" of the stream function (\partial_y,-\partialx)\psi
-	call derivs(forcingx, streamfunc,dx,N,2)
-	call derivs(forcingy,-streamfunc,dx,N,1)
+	call derivs(forcingx,streamfunc,dx,N,2)
+	call derivs(forcingy,streamfunc,dx,N,1)
+	forcingy=(-1.0)*forcingy
 
         if (mod(ITE-1,freq).eq.0) then
         if(printforcing.eq.1)then
-        ret = gft_out_brief(trim(arg)//'fx',time, (/nx,nx/), 2, forcingx)
-        ret = gft_out_brief(trim(arg)//'fy',time, (/nx,nx/), 2, forcingy)
+        ret = gft_out_brief(trim(arg)//'fx',time, (/n,n/), 2, forcingx)
+        ret = gft_out_brief(trim(arg)//'fy',time, (/n,n/), 2, forcingy)
         endif
         endif
 
@@ -124,7 +129,7 @@
 !	print *, 'made it up to 2nd rhs call'
 	printforcing=0
 	call rhs(unew,dxU,dyU,dxFxU,dyFyU,urk2,dx,N,&
-	&	pold,FFTHandle,lenghts)
+	&	pold,FFTHandle,lengths)
 !	print *, 'made it past 2nd rhs call'
 	call boundary(unew,dxU, dyU, urk2,dx,time,x)
 	

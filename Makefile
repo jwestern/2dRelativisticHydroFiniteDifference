@@ -38,8 +38,9 @@ clean:
 
 boundary.o: params.o
 derivs.o: params.o
-evolve.o: boundary.o derivs.o params.o rhs.o
+evolve.o: boundary.o derivs.o params.o rhs.o fourier_tools.o
 initial.o: derivs.o
-main.o: derivs.o evolve.o initial.o params.o scaling_gen.o
+main.o: scaling_gen.o derivs.o evolve.o initial.o params.o fourier_tools.o
 rhs.o: params.o fourier_tools.o
-fourier_tools.o: 
+scaling_gen.o:
+fourier_tools.o:
