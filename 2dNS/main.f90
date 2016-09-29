@@ -226,6 +226,7 @@ endif
 !	ret = gft_out_brief('t',1.0d0, (/n,n/), 2, tn)
 
 !Determine and print the energy injection wavenumber
+!XXX: THIS WORKS ONYL IF FORCING VORTICITY DIRECTLY, SO CHANGE IT/REMOVE IT
 	scaltemp=scaling**2.
 	where (kimag) scaltemp=0.
 	Stat = DftiComputeBackward(FFTHandle, scaltemp(:,1), scalingsolve(:,1) )

@@ -1,0 +1,48 @@
+&pars_input
+N = 401
+nt = 1
+freq = 1
+cfl = 0.5
+weos=0.5
+disip = -0.01
+sL = 1.
+sR = 2.
+derorder=2
+dissorder=4
+STMETH=3 !Outdated. We use SRKII
+c=.0
+s= 0.
+a=0.
+k_r=0.0
+k_e=0.0
+gamma = 1.5
+cl = 2.0
+valuefloor = 1.e-5
+fric=0	!Turn friction on/off
+relativisticfriction=1
+fricstr=0.035 !0.054 !for L_fric = L/6, epsilon =0.00042842
+kfric=6
+filterfric=0 !Not currently implemented
+!
+!!!!! "Resume" parameters
+!
+resume=0
+resume_integer=3
+resume_time=116.015625
+!
+!!!!!!Forcing general pars
+!
+F0=0.0001	!Forcing strength for all force types
+solenoidalforce=0 !Note: toggling this on changes forcing strengths considerably...
+!
+!!!!! Force w/ shifted rectangular profile in Fourier space
+!
+shiftrectforce=0
+kforcel=100
+kforceg=300
+!
+!!!!! Force w/ centred gaussian profile in Fourier space
+!
+gaussforce=1
+lf=1 !Real space grid units
+/
