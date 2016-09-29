@@ -1,0 +1,71 @@
+&pars_input
+Lx = 6.283185307179586 !2*pi
+N = 2049
+nt = 54326 
+freq = 10865
+cfl = 0.2
+weos=2.
+disip = -0.0
+sL = 1.
+sR = 2.
+derorder=2
+dissorder=4
+STMETH=3
+c=.0
+s= 0.
+a=0.
+k_r=0.0
+k_e=0.0
+gamma = 1.5
+cl = 2.0
+valuefloor = 1.e-5
+rhoforce=0 !outdated par for choosing force=rho*force
+fric=1	!Turn friction on/off
+relativisticfriction=1
+forcestr=1 !outdated, for scaling up force+fric strengths
+fricstr=0.015
+kfric=6
+filterfric=0
+!
+!!!!! "Resume" parameters
+!
+resume=1
+resume_integer=6
+resume_time=133.334
+!
+!!!!!!Forcing general pars
+!
+printforcing=0
+seed=678
+nskip=0	!if nonzero, equals (N-1)*(N-1)*nt
+F0=78.54	!Forcing strength for all force types
+solenoidalforce=1 !Note: toggling this on changes forcing strengths considerably...
+!
+!!!!! Force w/ shifted rectangular profile in Fourier space
+!
+shiftrectforce=0
+kforcel=99
+kforceg=101
+!
+!!!!! Force w/ centred gaussian profile in Fourier space
+!
+gaussforce=1
+lf=6.518986469044034  !Real space grid units
+!
+!!!!! Force w/ shifted gaussian profile in Fourier space
+!
+shiftgaussforce=0
+shift=100
+width=10 !Real space grid units
+!
+!!!!! Force w/ shifted raised cosine profile in Fourier space
+!
+shiftcosforce=0
+shift2=150
+width2=50 !Fourier space grid units
+!
+!!!!! Force w/ Boffetta profile... Uses lf parameter from Gaussian profile force
+!
+bofforce=0
+nu=0.00002
+/
