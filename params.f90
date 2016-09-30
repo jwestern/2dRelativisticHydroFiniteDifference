@@ -3,10 +3,10 @@
 	
 !define parameters !!!!!!!!!!!!!!!!!!!!!!!
 	real*8 ::  cfl, weos, disip, sL, sR, c,s,a,k_r,k_e, gamma, cl,valuefloor,fricstr,&
-		&	resume_time,F0,Lx
+		&	resume_time,F0,Lx,lf
 	integer :: N, Nt, freq, derorder,dissorder,STMETH,solenoidalforce, &
 		&	fric,relativisticfriction, shiftrectforce, kforcel, kforceg, resume, &
-		&	resume_integer, kfric, filterfric, lf,gaussforce, printforcing,&
+		&	resume_integer, kfric, filterfric, gaussforce, printforcing,&
 		&	seed
 	integer(kind=8) :: nskip
 	integer :: irho, ivx,ivy	

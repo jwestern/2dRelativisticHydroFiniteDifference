@@ -107,7 +107,7 @@
 		
 !define coords and related	
 	
-	dx= 10./(N-1)
+	dx= Lx/(N-1)
 	dy = dx
 	dt = cfl * dx
 	
@@ -127,7 +127,7 @@ if (gaussforce==1) then
 !define enveloping profile for Gaussian*k^2 profile
         kmag=2*pi*sqrt( kx**2 + ky**2 )/Lx
         lf2=lf*dx
-        scaling=sqrt(exp(-lf2**2*kmag**2/2.))*kmag**2.
+        scaling=sqrt(exp(-lf2**2*kmag**2/2.))
 
 elseif (shiftrectforce==1) then
 !define enveloping profile for rectangular profile
@@ -158,7 +158,7 @@ endif
         STAT = DftiCommitDescriptor(FFTHandle)
 
 !Recale 'scaling' to have desired (1,1) component in real space
-        call rescale(scaling,F0)	
+        call rescale(scaling,weos**2.*F0*lf2**2.)	
 
 !define initial data
 	call initial(Uold,Pold,dx,dy,x,y,Nv,N)

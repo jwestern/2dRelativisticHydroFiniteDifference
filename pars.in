@@ -1,11 +1,11 @@
 &pars_input
 Lx = 6.283185307179586 !2*pi
-N = 401
-nt = 1
+N = 2049
+nt = 10
 freq = 1
-cfl = 0.5
+cfl = 1.0
 weos=2.
-disip = -0.01
+disip = -0.0
 sL = 1.
 sR = 2.
 derorder=2
@@ -33,10 +33,10 @@ resume_time=116.015625
 !
 !!!!!!Forcing general pars
 !
-printforcing=0
-seed=678
+printforcing=1
+seed=876
 nskip=0 !if nonzero, equals Nv*(N-1)*(N-1)*nt, where Nv = number of forced variables
-F0=0.0001	!Forcing strength for all force types
+F0=0.00001	!Injection rate of (1/2.)*<T_{0i}T_0^i>, = epsilon in relativistic case
 solenoidalforce=1 !There is no option to turn this off
 !
 !!!!! Force w/ shifted rectangular profile in Fourier space
@@ -48,5 +48,5 @@ kforceg=300
 !!!!! Force w/ centred gaussian profile in Fourier space
 !
 gaussforce=1
-lf=1 !Real space grid units
+lf=6.518986469044034 !Real space grid units
 /

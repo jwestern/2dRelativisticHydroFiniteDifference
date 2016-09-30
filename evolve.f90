@@ -11,7 +11,7 @@
 	use m_derivs
 	use m_boundary
 	use m_rhs
-	use m_pars, only : STMETH, disip, irho, ivx,ivy,weos
+	use m_pars, only : STMETH, disip, irho, ivx,ivy,weos,printforcing
 	use fourier_tools
 	use MKL_DFTI
 	implicit none
@@ -32,7 +32,7 @@
 !
 	real*8, dimension(:,:):: x,y	
 	real*8 dx, dt, time, sqrtdt
-	integer :: Nv,N,printforcing
+	integer :: Nv,N
 	
 !keep in some variables the rhs
 	real*8, dimension(:,:,:), allocatable :: dxU,dyU,urk1,urk2,urk3,urk4,disu
@@ -62,13 +62,14 @@
 
 !Create stream function for forcing field	
 	call forcingfield2(streamfunc,N,scaling,errcode,method,stream,numrands,avg,sigma,FFTHandle,lengths)
+
 !Define the forcing field in the usual way, as the "curl" of the stream function (\partial_y,-\partialx)\psi
-	call derivs(forcingx,streamfunc,dx,N,2)
-	call derivs(forcingy,streamfunc,dx,N,1)
-	forcingy=(-1.0)*forcingy
+	call derivs( streamfunc,forcingx,dx,N,2)
+	call derivs(-streamfunc,forcingy,dx,N,1)
 
         if (mod(ITE-1,freq).eq.0) then
         if(printforcing.eq.1)then
+	write(*,*) 'printing force'
         ret = gft_out_brief(trim(arg)//'fx',time, (/n,n/), 2, forcingx)
         ret = gft_out_brief(trim(arg)//'fy',time, (/n,n/), 2, forcingy)
         endif
@@ -104,8 +105,8 @@
 	urk1 = urk1 + EPS*disu
 	
 	unew = uold + dt * urk1
-	unew(2,:,:) = unew(2,:,:) + sqrtdt*forcingx
-	unew(3,:,:) = unew(3,:,:) + sqrtdt*forcingy
+	unew(ivx,:,:) = unew(ivx,:,:) + sqrtdt*forcingx
+	unew(ivy,:,:) = unew(ivy,:,:) + sqrtdt*forcingy
 	
 	call floor(unew(irho,:,:),N)
 	do i=1,N
@@ -136,8 +137,8 @@
 	urk2 = urk2 + EPS*disu
 
 	unew = uold + 0.5 * dt * ( urk1 + urk2 )
-	unew(2,:,:) = unew(2,:,:) + sqrtdt*forcingx
-	unew(3,:,:) = unew(3,:,:) + sqrtdt*forcingy
+	unew(ivx,:,:) = unew(ivx,:,:) + sqrtdt*forcingx
+	unew(ivy,:,:) = unew(ivy,:,:) + sqrtdt*forcingy
 	
 	call floor(unew(irho,:,:),N)
 	do i=1,N
