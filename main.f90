@@ -163,8 +163,9 @@ endif
 !define initial data
 	call initial(Uold,Pold,dx,dy,x,y,Nv,N)
 
-if (resume==1) time = 1.0d0*int(resume_time/dt)*dt
+if (resume==1) time = 1.0d0*nint(resume_time/dt)*dt
 if (resume==0) time = 0.0d0
+
 	Unew = Uold
 	Pnew = Pold
 
@@ -211,5 +212,8 @@ if (resume==0) time = 0.0d0
 !          ret = gft_out_brief('Sx',time, (/n,n/), 2, uold(ivx,:,:))
 !          ret = gft_out_brief('Sy',time, (/n,n/), 2, uold(ivy,:,:))
 !          ret = gft_out_brief('D',time, (/n,n/), 2, uold(irho,:,:))
+
+	  STAT = vslsavestreamf( stream, 'stream_state' )
+	  STAT = DftiFreeDescriptor(FFTHandle)
 
 	end
