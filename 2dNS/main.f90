@@ -243,7 +243,7 @@ endif
 !define initial data
 	call initial(Uold,dx,dy,x,y,Nv,N)
 
-if (resume==1) time = 1.0d0*int(resume_time/dt)*dt+dt
+if (resume==1) time = 1.0d0*nint(resume_time/dt)*dt+dt
 if (resume==0) time = 0.0d0
 	Unew = Uold
 
